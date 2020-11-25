@@ -16,7 +16,7 @@ var setCls = function( element ,cls){
   return element.setAttribute('class',cls);
 }
 
-// 为元素添加样式
+// Add style to elements
 var addCls = function( element , cls ){
   var baseCls  = getCls(element);
   if( baseCls.indexOf(cls) === -1){
@@ -24,7 +24,7 @@ var addCls = function( element , cls ){
   }
   return ;
 }
-// 为元素删减样式
+// Remove style from elements
 var delCls = function( element , cls){
   var baseCls  = getCls(element);
   if( baseCls.indexOf(cls) > -1){ // 更精确的需要用正则表达式 ,因为这里只用于切换 _animate_in 所以没事
@@ -69,8 +69,8 @@ var screenAnimateElements = {
 
 };
 function setScreenAnimateInit(screenCls) {
-    var screen = document.querySelector(screenCls); // 获取当前屏的元素
-    var animateElements =  screenAnimateElements[screenCls]; // 需要设置动画的元素
+    var screen = document.querySelector(screenCls); // Get the elements of the current screen
+    var animateElements =  screenAnimateElements[screenCls]; // Elements that need to be animated
     for(var i=0;i<animateElements.length;i++){
         var element = document.querySelector(animateElements[i]);
         var baseCls = element.getAttribute('class');
@@ -78,10 +78,10 @@ function setScreenAnimateInit(screenCls) {
     }
 }
 
-// 第一步：初始化设置
+// Step 1: Initialize settings
 window.onload = function () {
 
-  //  为所有元素设置 init
+  //  Set for all elements to init
   for(k in screenAnimateElements){
     if(k == '.screen-1'){
       continue;
@@ -91,20 +91,19 @@ window.onload = function () {
   console.log('onload')
 
 }
-// 第二步：滚动条设置
+// Step 2: Scroll bar settings
 function playScreenAnimateDone(screenCls){
-    var screen = document.querySelector(screenCls); // 获取当前屏的元素
-    var animateElements =  screenAnimateElements[screenCls]; // 需要设置动画的元素
+    var screen = document.querySelector(screenCls); // Get the elements of the current screen
+    var animateElements =  screenAnimateElements[screenCls]; // Elements that need to be animated
     for(var i=0;i<animateElements.length;i++){
         var element = document.querySelector(animateElements[i]);
         var baseCls = element.getAttribute('class');
         element.setAttribute('class',baseCls.replace('_animate_init','_animate_done'));    
     }
 }
-//  第二步附加：初始化第一屏的动画（1. skipScreenAnimateInit 2.跳过 init ）
+//  Second step additional: Initialize the animation of the first screen（1. skipScreenAnimateInit 2.Skip init ）
 
 setTimeout(function(){playScreenAnimateDone('.screen-1');},100)
-
 
 var navItems = getAllElem('.header__nav-item');
 var outLineItems = getAllElem('.outline__item');
@@ -130,13 +129,13 @@ window.onscroll = function () {
 
   var top  = document.body.scrollTop;
 
-  //   2.1 导航条样式变动
+  // 2.1 Navigation bar style changes
   if( top > 100 ){
       addCls( getElem('.header'),'header_status_black' );
   }else{
       delCls( getElem('.header'),'header_status_black' );
 
-      switchNavItemsActive(0); // 后面添加的，不需要立刻
+      switchNavItemsActive(0); //Added later, don’t need to be immediately
   }
 
   if(top > 800*1 ){
@@ -148,7 +147,7 @@ window.onscroll = function () {
   if( top > ( 800*1 - 100) ){
     playScreenAnimateDone('.screen-2');
 
-    switchNavItemsActive(1); // 后面添加的，不需要立刻
+    switchNavItemsActive(1); // Added later, don’t need to be immediately
   }
   if( top > ( 800*2 - 100) ){
     playScreenAnimateDone('.screen-3');
@@ -164,9 +163,9 @@ window.onscroll = function () {
   }
 }
 
-//  第三步 导航条双向定位
+// Step 3: Two-way positioning of the navigation bar
 
-// 3.1 导航条 - 点击页面跳转
+// 3.1 Navigation bar-click on the page to jump
 
 var setNavJump = function(i,lib){
   var elem = lib[i];
@@ -178,15 +177,15 @@ var setNavJump = function(i,lib){
 for(var i=0;i<navItems.length;i++){
   setNavJump(i,navItems);
 }
-// 3.2  大纲-点击跳转
+// 3.2 Outline-click to jump
 
 for(var i=0;i<outLineItems.length;i++){
   setNavJump(i,outLineItems);
 }
-// 3.3 双向绑定，回到 onscrollTop（移动 navIntes、outLineItems到顶固）、增加 clear 样式 函数
 
+// 3.3 Two-way binding, return to onscrollTop (move navIntes, outLineItems to top solid), add clear style function
 
-// 滑动门
+// Sliding Tip
 var navTip = getElem('.header__nav-tip');
 var setTip = function(idx,lib){
 

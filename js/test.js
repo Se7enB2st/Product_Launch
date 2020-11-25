@@ -38,16 +38,16 @@ var screenAnimateElements = {
 
 function setScreenAnimate(screenCls) {
 
-  var screen = document.querySelector(screenCls); // 获取当前屏的元素
-  var animateElements =  screenAnimateElements[screenCls]; // 需要设置动画的元素
+  var screen = document.querySelector(screenCls); //Get the elements of the current screen
+  var animateElements =  screenAnimateElements[screenCls]; //Elements that need to be animated
 
-  var isSetAnimateClass = false; // 是否有初始化子元素的样式
+  var isSetAnimateClass = false; //Is there a style to initialize child elements
 
-  var isAnimateDone = false; // 当前屏幕下所有子元素的状态是DONE？
+  var isAnimateDone = false; // Is the status of all child elements on the current screen DONE?
 
   screen.onclick = function(){
 
-    //  初始化样式，增加init A A_init
+    //  Initialize style, add class: init A A_init
     if( isSetAnimateClass === false){
         for(var i=0;i<animateElements.length;i++){
             var element = document.querySelector(animateElements[i]);
@@ -57,7 +57,7 @@ function setScreenAnimate(screenCls) {
         isSetAnimateClass = true;
         return ;
     }
-    //  切换所有 animateElements 的  init -> done   A A_done
+    //  Switch all animateElements's class from init -> done   A A_done
     if(isAnimateDone === false){
       for(var i=0;i<animateElements.length;i++){
         var element = document.querySelector(animateElements[i]);
@@ -67,7 +67,7 @@ function setScreenAnimate(screenCls) {
       isAnimateDone = true;
       return ;
     }
-    //  切换所有 animateElements 的  done -> init   A A_init
+    //  Switch all animateElements's class from done -> init   A A_init
     if(isAnimateDone === true){
       for(var i=0;i<animateElements.length;i++){
         var element = document.querySelector(animateElements[i]);
